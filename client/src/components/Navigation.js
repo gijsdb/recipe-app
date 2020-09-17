@@ -1,0 +1,62 @@
+import React from 'react';
+import styled from 'styled-components';
+import { BtnBorder } from '../styles/Buttons'
+import { logoutUser } from '../redux/actions/authActions'
+import { useHistory } from 'react-router-dom';
+import { connect } from "react-redux";
+
+export const Navigation = ({navigateTarget, logoutUser}) => {
+
+    const history = useHistory();
+
+    const logoutEvent = (e) => {
+      logoutUser();
+      history.push("/")
+    }
+    
+    const navigateEvent = (navigateTarget) => {
+      history.push("/" + navigateTarget)
+    }
+    
+    return(
+      <NavigationContainer>
+        <BtnBorder 
+        onClick={logoutEvent}
+        color="white"
+        borderColor="white"
+        className="btnHomeHover"
+        >
+            Logout
+        </BtnBorder>
+
+        <BtnBorder 
+            onClick={() => {
+                navigateEvent('home')
+            }}
+            color="white"
+            borderColor="white"
+            className="btnHomeHover"
+        >
+            Back
+        </BtnBorder>
+      </NavigationContainer>
+    )
+}
+
+function mapStateToProps(state) { //redux mapping part
+    return { 
+      isAuthenticated: state.authReducer.isAuthenticated,
+      user: state.authReducer.user,
+      error: state.errorReducer,  
+    }
+  }
+  
+export default connect(mapStateToProps, {logoutUser})(Navigation) //redux connecting
+
+export const NavigationContainer = styled.div`
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+`;

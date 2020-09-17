@@ -1,0 +1,14 @@
+-- BACK END ---
+[x] - Login route
+[ ] - Detail validation using joi
+[ ] - JWT
+
+[ ] - Recipe routes
+    - Ingredients 
+    - Method
+
+-- FRONT END ---
+[ ] - Set up redux
+[ ] - Protected routes
+[ ] - Display recipes
+[ ] - Add recipe

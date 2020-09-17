@@ -1,0 +1,21 @@
+.btnAuthHover {
+    transition: 0.5s;
+}
+
+.btnAuthHover:hover {
+    color: #fff;
+    background-color: green;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.btnHomeHover {
+    transition: 0.5s;
+}
+
+.btnHomeHover:hover {
+    color:rgba(238,180,98,1);
+    background-color: white;
+    transition: 0.5s;
+    cursor: pointer;
+}
