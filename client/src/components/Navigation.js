@@ -31,7 +31,7 @@ export const Navigation = ({navigateTarget, logoutUser}) => {
 
         <BtnBorder 
             onClick={() => {
-                navigateEvent('home')
+                navigateEvent(navigateTarget)
             }}
             color="white"
             borderColor="white"

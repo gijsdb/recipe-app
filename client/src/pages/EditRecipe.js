@@ -46,7 +46,7 @@ const EditRecipe = ({
       {isAuthenticated ? (
 
         <>
-            <Navigation navigateTarget="home"></Navigation>
+            <Navigation navigateTarget="recipe"></Navigation>
            
               <CenterContent>
                 {altering === 'ingredients' && 
