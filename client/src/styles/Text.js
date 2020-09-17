@@ -30,7 +30,7 @@ export const SubTitle = styled.h2`
 export const UnorderedList = styled.ul`
   list-style: none;
   padding: 0;
-  font-size: 2em;
+  font-size:  ${props => props.fontSize || '2em'};
   font-weight: 400;
-  color: ${props => props.theme.secondaryColor};
+  color: ${props => props.color};
 `

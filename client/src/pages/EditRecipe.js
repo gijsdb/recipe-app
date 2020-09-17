@@ -2,19 +2,20 @@ import React ,{useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
 import { Container, CenterContent } from '../styles/PageLayout'
-import { Title } from '../styles/Text'
+import { Title, SubTitle } from '../styles/Text'
 import { BtnBorder } from '../styles/Buttons'
 import Navigation from '../components/Navigation'
 import { useLocation } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
+import { UnorderedList } from '../styles/Text'
 
 
-const EditMethod = ({}) => {
+const EditMethod = ({recipe}) => {
   const [steps, setSteps] = useState([]);
   const [step, setStep] = useState([]);
   const stepInput = useRef(null);
   const handleChangeStep = (e) => setStep(e.target.value);
-
+  console.log(recipe)
    
   async function handleClick () {
     if(step === '') {
@@ -34,6 +35,7 @@ const EditMethod = ({}) => {
   return (
     <>
     <Title color="#fff">Editing method</Title>
+    <SubTitle color="#fff">Editing for: {recipe.Title}</SubTitle>
       <TextField 
         type="text"    
         placeholder="Enter Step"
@@ -42,7 +44,7 @@ const EditMethod = ({}) => {
         autoComplete="off"
         label="Enter Step" 
         variant="outlined"
-        fullWidth="true"
+        fullWidth={true}
         ref={stepInput}
       />
        <BtnBorder
@@ -55,14 +57,24 @@ const EditMethod = ({}) => {
        >Add
        </BtnBorder>
        {steps.length > 0 ? (
-        
-        <ol>
-          {steps.map((step, index) => {
-            return(
-              <li><p key={index}>{step}</p></li>
-            )
-          })}
-        </ol>
+        <>
+          <UnorderedList color="#fff" fontSize="1.5em">
+            {steps.map((step, index) => {
+              return(
+                <li><p key={index}>{index + 1} - {step}</p></li>
+              )
+            })}
+          </UnorderedList>
+
+          <BtnBorder
+          color="white"
+          borderColor="white"
+          className="btnHomeHover"
+          fontSize="1em"
+          marginTop="0.5em"
+          >Confirm
+          </BtnBorder>
+        </>
         ) : 
           <></> 
        }
@@ -109,7 +121,7 @@ const EditRecipe = ({
                   <EditIngredients></EditIngredients>
                 }
                 {altering === 'method' && 
-                  <EditMethod></EditMethod>
+                  <EditMethod recipe={recipe}></EditMethod>
                 }
                 {location.state === undefined && 
                   <p>Please select what you want to edit on the recipe screen of your own recipe</p>
