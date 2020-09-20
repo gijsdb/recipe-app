@@ -33,7 +33,8 @@ const RecipeInfo = ({
                 {recipe.Title}
             </Title>
             <SubTitle color="#FFF">
-                Added by: {recipe.AddedBy.Name}
+                {/* Added by: {recipe.AddedBy.Name} */}
+                {/* {console.log(recipe.AddedBy)} */}
             </SubTitle>
             <SubTitle color="#FFF">
                 Created at: {recipe.createdAt}

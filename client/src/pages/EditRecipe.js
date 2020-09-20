@@ -7,18 +7,18 @@ import { BtnBorder } from '../styles/Buttons'
 import Navigation from '../components/Navigation'
 import { useLocation } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
-import { UnorderedList } from '../styles/Text'
-
+import { UnorderedList } from '../styles/Text';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const EditMethod = ({recipe}) => {
   const [steps, setSteps] = useState([]);
   const [step, setStep] = useState([]);
   const stepInput = useRef(null);
   const handleChangeStep = (e) => setStep(e.target.value);
-  console.log(recipe)
-   
-  async function handleClick () {
+  
+  const handleAddStep = () => {
     if(step === '') {
+      alert('Please enter a step')
       throw new Error('You must enter a step');
     }
     
@@ -28,9 +28,31 @@ const EditMethod = ({recipe}) => {
     } catch(e) {
       throw new Error(e.message)
     }
-   
   }
 
+  document.body.onkeydown = function(e) {
+    if (e.key == 'Enter') {
+      handleAddStep();
+    }
+  };
+
+  async function handleConfirm () {
+    console.log('Send method to server')
+  }
+
+  const handleDeleteStep = (index) => {
+    var stepsCopy = [...steps];
+    console.log(index)
+
+    console.log('stepsCopy before delete is', stepsCopy);
+
+    if (index !== -1) {
+      stepsCopy.splice(index, 1);
+    }
+
+    console.log('stepsCopy after delete is', stepsCopy)
+    setSteps(stepsCopy);
+  }
 
   return (
     <>
@@ -53,7 +75,7 @@ const EditMethod = ({recipe}) => {
           className="btnHomeHover"
           fontSize="1em"
           marginTop="0.5em"
-          onClick={handleClick}
+          onClick={handleAddStep}
        >Add
        </BtnBorder>
        {steps.length > 0 ? (
@@ -61,7 +83,7 @@ const EditMethod = ({recipe}) => {
           <UnorderedList color="#fff" fontSize="1.5em">
             {steps.map((step, index) => {
               return(
-                <li><p key={index}>{index + 1} - {step}</p></li>
+                <li key={index}><p>{index + 1} - {step} <AiOutlineDelete className="methodDeleteHover" onClick={() => handleDeleteStep(index)}/></p></li>
               )
             })}
           </UnorderedList>
@@ -72,6 +94,7 @@ const EditMethod = ({recipe}) => {
           className="btnHomeHover"
           fontSize="1em"
           marginTop="0.5em"
+          onClick={handleConfirm}
           >Confirm
           </BtnBorder>
         </>
