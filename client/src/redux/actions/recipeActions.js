@@ -61,3 +61,30 @@ export const setCurrentRecipe = (recipe) => (dispatch) => {
     payload: recipe
   })
 }
+
+export const setMethod = (method, recipeId) => (dispatch, getState) => {
+  const token = getState().authReducer.token;
+  console.log('Hit setMethod with', method)
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': token
+    }
+  };
+
+  const body = JSON.stringify({ method, recipeId });
+  axios
+    .post('http://localhost:8000/api/recipes/add/method', body, config)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+      
+}
+
+export const setIngredients = (ingredientsList) => (dispatch, getState) => {
+  const token = getState().authReducer.token;
+
+  console.log('Hit setIngredients with', ingredientsList)
+
+}
+  

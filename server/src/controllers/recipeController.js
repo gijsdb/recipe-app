@@ -89,16 +89,18 @@ module.exports = {
     },
 
     async addMethod (req, res) {
-        try {
-          const newRecipe = new Method({
-               
-          })
-          const createdMethod = newRecipe.save();
-          res.json({
-           method: createdMethod,
-          })
-        } catch(e) {
-
-        }
+      // needs to be an update
+        // try {
+        //   const newMethod = new Method({
+        //     Steps: req.body.method,
+        //     Recipe: req.body.recipeId
+        //   })
+        //   const createdMethod = newMethod.save();
+        //   res.json({
+        //    method: createdMethod,
+        //   })
+        // } catch(e) {
+        //   console.log(e)
+        // }
     },
 }

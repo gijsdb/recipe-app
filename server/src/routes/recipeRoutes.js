@@ -6,4 +6,5 @@ module.exports = (app) => {
     app.post('/api/recipes/created', RecipeController.retrieveMyRecipes);
 
     app.post('/api/recipes/add', middlewares.auth, RecipeController.addRecipe);
+    app.post('/api/recipes/add/method', middlewares.auth, RecipeController.addMethod);
 }

@@ -7,15 +7,12 @@ import { BtnBorder } from '../styles/Buttons'
 import Navigation from '../components/Navigation'
 import { useLocation } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import { UnorderedList } from '../styles/Text';
 import { AiOutlineDelete } from 'react-icons/ai';
-import {IngredientInput} from '../components/IngredientInput'
+import {IngredientInput} from '../components/IngredientInput';
+import {setIngredients, setMethod} from '../redux/actions/recipeActions';
 
-const EditMethod = ({recipe}) => {
+const EditMethod = ({recipe, setMethod}) => {
   const [steps, setSteps] = useState([]);
   const [step, setStep] = useState([]);
   const stepInput = useRef(null);
@@ -42,7 +39,8 @@ const EditMethod = ({recipe}) => {
   };
 
   async function handleConfirm () {
-    console.log('Send method to server')
+    console.log('Send method to server with recipe id', recipe._id)
+    await setMethod(steps, recipe._id)
   }
 
   const handleDeleteStep = (index) => {
@@ -107,11 +105,11 @@ const EditMethod = ({recipe}) => {
 
 }
 
-const EditIngredients = ({recipe}) => {
-  const [ingredientsList, setIngredients] = useState([]);
+const EditIngredients = ({recipe, setIngredients}) => {
+  const [ingredientsList, setIngredientsList] = useState([]);
 
   const addIngredient = (newIngredient) => {
-    setIngredients(ingredientsList.concat(newIngredient));
+    setIngredientsList(ingredientsList.concat(newIngredient));
   }
 
   const handleDeleteIngredient = (index) => {
@@ -121,11 +119,12 @@ const EditIngredients = ({recipe}) => {
       ingredientsCopy.splice(index, 1);
     }
 
-    setIngredients(ingredientsCopy)
+    setIngredientsList(ingredientsCopy)
   }
 
   async function handleConfirm () {
-    console.log('Send ingredients list to server')
+    console.log('Send ingredients list to server with recipe id', recipe._id)
+    setIngredients(ingredientsList)
   }
 
 
@@ -166,6 +165,8 @@ const EditIngredients = ({recipe}) => {
 
 
 const EditRecipe = ({
+  setMethod,
+  setIngredients,
   isAuthenticated,
   recipe,
   user,
@@ -190,10 +191,10 @@ const EditRecipe = ({
            
               <CenterContent>
                 {altering === 'ingredients' && 
-                  <EditIngredients recipe={recipe}></EditIngredients>
+                  <EditIngredients  setIngredients={setIngredients} recipe={recipe}></EditIngredients>
                 }
                 {altering === 'method' && 
-                  <EditMethod recipe={recipe}></EditMethod>
+                  <EditMethod setMethod={setMethod} recipe={recipe}></EditMethod>
                 }
                 {location.state === undefined && 
                   <p>Please select what you want to edit on the recipe screen of your own recipe</p>
@@ -217,4 +218,4 @@ function mapStateToProps(state) { //redux mapping part
   }
 }
 
-export default connect(mapStateToProps, {})(EditRecipe) //redux connecting
+export default connect(mapStateToProps, {setMethod, setIngredients})(EditRecipe) //redux connecting
