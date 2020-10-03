@@ -7,8 +7,13 @@ import { BtnBorder } from '../styles/Buttons'
 import Navigation from '../components/Navigation'
 import { useLocation } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import { UnorderedList } from '../styles/Text';
 import { AiOutlineDelete } from 'react-icons/ai';
+import {IngredientInput} from '../components/IngredientInput'
 
 const EditMethod = ({recipe}) => {
   const [steps, setSteps] = useState([]);
@@ -42,15 +47,10 @@ const EditMethod = ({recipe}) => {
 
   const handleDeleteStep = (index) => {
     var stepsCopy = [...steps];
-    console.log(index)
-
-    console.log('stepsCopy before delete is', stepsCopy);
 
     if (index !== -1) {
       stepsCopy.splice(index, 1);
     }
-
-    console.log('stepsCopy after delete is', stepsCopy)
     setSteps(stepsCopy);
   }
 
@@ -107,10 +107,59 @@ const EditMethod = ({recipe}) => {
 
 }
 
-const EditIngredients = ({}) => {
+const EditIngredients = ({recipe}) => {
+  const [ingredientsList, setIngredients] = useState([]);
+
+  const addIngredient = (newIngredient) => {
+    setIngredients(ingredientsList.concat(newIngredient));
+  }
+
+  const handleDeleteIngredient = (index) => {
+    var ingredientsCopy = [...ingredientsList];
+
+    if (index !== -1) {
+      ingredientsCopy.splice(index, 1);
+    }
+
+    setIngredients(ingredientsCopy)
+  }
+
+  async function handleConfirm () {
+    console.log('Send ingredients list to server')
+  }
+
 
   return (
-    <Title color="#fff">Editing ingredients</Title>
+    <>
+      <Title color="#fff">Editing ingredients</Title>
+      <SubTitle color="#fff">Editing for: {recipe.Title}</SubTitle>
+
+      <IngredientInput onSubmit={addIngredient}></IngredientInput>
+      {ingredientsList.length > 0 ? (
+        <>
+          <UnorderedList color="#fff" fontSize="1.5em">
+            {ingredientsList.map((ingredient, index) => {
+              
+              return(
+                <li key={index}><p>{ingredient.amount} {ingredient.measurement} {ingredient.ingredient} <AiOutlineDelete className="methodDeleteHover" onClick={() => handleDeleteIngredient(index)}/></p></li>
+              )
+            })}
+          </UnorderedList>
+
+          <BtnBorder
+          color="white"
+          borderColor="white"
+          className="btnHomeHover"
+          fontSize="1em"
+          marginTop="0.5em"
+          onClick={handleConfirm}
+          >Confirm
+          </BtnBorder>
+        </>
+        ) : 
+          <></> 
+       }
+    </>
   )
 
 }
@@ -141,7 +190,7 @@ const EditRecipe = ({
            
               <CenterContent>
                 {altering === 'ingredients' && 
-                  <EditIngredients></EditIngredients>
+                  <EditIngredients recipe={recipe}></EditIngredients>
                 }
                 {altering === 'method' && 
                   <EditMethod recipe={recipe}></EditMethod>

@@ -40,10 +40,9 @@ const AddRecipe  = ({
   async function Navigate() {
     setTimeout(function() {
       history.push({
-        //pathname: '/recipe/' + recipe.recipe._id,
         pathname: '/recipe/',
       })
-    }, 1000);
+    }, 500);
     
   }
     

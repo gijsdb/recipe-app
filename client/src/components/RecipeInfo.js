@@ -17,7 +17,10 @@ const RecipeInfo = ({
   const [isOwnRecipe, setIsOwnRecipe] = useState(false);
  
   useEffect(() => {
-    if(recipe.AddedBy._id === user._id) {
+    // Not working when adding recipe?
+    console.log('reached')
+    if(recipe.AddedBy._id === user._id || recipe.AddedBy === user.id) {
+      console.log('reached')
       setIsOwnRecipe(true);
     }
   },[])

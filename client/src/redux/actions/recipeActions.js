@@ -22,7 +22,7 @@ export const addRecipe = ({Title, AddedBy}) => (dispatch, getState) => {
         .then(res => 
           dispatch({
             type: CREATE_RECIPE,
-            payload: res.data
+            payload: res.data.recipe
           }))
         .catch(err => {
           dispatch(
