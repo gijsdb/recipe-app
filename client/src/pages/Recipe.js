@@ -18,7 +18,6 @@ const Recipe = ({
 
   useEffect(() => {
     if(recipe !== undefined) {
-      console.log(recipe)
       setRecipeSelected(true);
     }
   },[])

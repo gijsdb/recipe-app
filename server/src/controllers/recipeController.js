@@ -30,6 +30,7 @@ module.exports = {
         const AddedBy = req.body.AddedBy
         Recipe.find({AddedBy})
         .populate('AddedBy', 'Name')
+        .populate('Method', 'Steps')
         .exec(function(error, recipes) {
             if(recipes.length <= 0) {
               return res.status(403).send({
@@ -40,15 +41,6 @@ module.exports = {
               res.json(recipes)
             }
         })  
-
-
-       
-        // const recipes = await Recipe.find({AddedBy});
-        // if(recipes.length <= 0) {
-        //   return res.status(403).send({
-        //     error: 'You have not made any recipes'
-        //   })
-        // }
         res.json(recipes)
         return
       } catch(e) {
@@ -89,18 +81,37 @@ module.exports = {
     },
 
     async addMethod (req, res) {
-      // needs to be an update
-        // try {
-        //   const newMethod = new Method({
-        //     Steps: req.body.method,
-        //     Recipe: req.body.recipeId
-        //   })
-        //   const createdMethod = newMethod.save();
-        //   res.json({
-        //    method: createdMethod,
-        //   })
-        // } catch(e) {
-        //   console.log(e)
-        // }
+        const method = req.body.method;
+        const recipeId = req.body.recipeId;
+        const newMethod = {
+          Recipe: recipeId,
+          Steps: method
+        }
+        var options = { new: true, upsert: true }; 
+        if (recipeId) {
+            Method.findOneAndUpdate({Recipe: recipeId}, newMethod, options, function(err, updatedMethod){ 
+              if(err) {
+                console.log(err)
+              }
+              console.log('Updated method is',updatedMethod)
+              res.json(
+                updatedMethod
+              )
+              const recipeUpdate = {
+                Method: updatedMethod._id
+              }
+              Recipe.findOneAndUpdate({_id: recipeId}, recipeUpdate, {new:true}, function(err, updatedRecipe) {
+                if(err) {
+                  console.log(err)
+                }
+                console.log('New recipe iss', updatedRecipe)
+                // res.json(
+                //   updatedRecipe
+                // )
+              })
+            });
+          
+        }              
     },
+
 }

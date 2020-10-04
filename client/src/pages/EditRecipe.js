@@ -18,6 +18,14 @@ const EditMethod = ({recipe, setMethod}) => {
   const stepInput = useRef(null);
   const handleChangeStep = (e) => setStep(e.target.value);
   
+
+  useEffect(() => {
+    console.log(recipe.Method.Steps)
+    if(recipe.Method.Steps) {
+      setSteps(recipe.Method.Steps)
+    }
+  },[])
+
   const handleAddStep = () => {
     if(step === '') {
       alert('Please enter a step')

@@ -75,16 +75,12 @@ const RecipeInfo = ({
                     }
                 </HalfCol>
                 <HalfCol>
-                    <h1>Method</h1>
-                    <ul>
-                        <li>3 Tsp salt</li>
-                        <li>3 Tsp salt</li>
-                        <li>3 Tsp salt</li>
-                        <li>3 Tsp salt</li>
-                        <li>3 Tsp salt</li>
-                        <li>3 Tsp salt</li>
-                        <li>3 Tsp salt</li>
-                    </ul>
+                  <h1>Method</h1>
+                  <ul style={{listStyleType: 'none'}}>
+                    {recipe.Method.Steps.map((x, index) => {
+                      return <li key={index}>{index + 1} - {x}</li>;
+                    })}
+                  </ul>
                     {isOwnRecipe ? (
                      <BtnBorder
                      color="white"
