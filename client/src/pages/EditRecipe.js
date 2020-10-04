@@ -15,6 +15,7 @@ import {setIngredients, setMethod} from '../redux/actions/recipeActions';
 const EditMethod = ({recipe, setMethod}) => {
   const [steps, setSteps] = useState([]);
   const [step, setStep] = useState([]);
+  const history = useHistory();
   const stepInput = useRef(null);
   const handleChangeStep = (e) => setStep(e.target.value);
   
@@ -46,12 +47,14 @@ const EditMethod = ({recipe, setMethod}) => {
   };
 
   async function handleConfirm () {
-    await setMethod(steps, recipe._id)
+    const success = await setMethod(steps, recipe._id)
+    if(success) {
+      history.push('/recipe');
+    }
   }
 
   const handleDeleteStep = (index) => {
     var stepsCopy = [...steps];
-
     if (index !== -1) {
       stepsCopy.splice(index, 1);
     }
@@ -103,7 +106,18 @@ const EditMethod = ({recipe, setMethod}) => {
           </BtnBorder>
         </>
         ) : 
-          <></> 
+          <>
+            <p>No steps</p>
+            <BtnBorder
+              color="white"
+              borderColor="white"
+              className="btnHomeHover"
+              fontSize="1em"
+              marginTop="0.5em"
+              onClick={handleConfirm}
+              >Confirm
+            </BtnBorder>
+          </> 
        }
       
     </>

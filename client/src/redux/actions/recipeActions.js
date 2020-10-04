@@ -81,10 +81,10 @@ export const setMethod = (method, recipeId) => (dispatch, getState) => {
         type: SET_CURRENT_RECIPE,
         payload: recipe
       })
-      
+      return true;
     })
     .catch(err => console.log(err))
-      
+    return true; 
 }
 
 export const setIngredients = (ingredientsList) => (dispatch, getState) => {
