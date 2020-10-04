@@ -20,7 +20,6 @@ const EditMethod = ({recipe, setMethod}) => {
   
 
   useEffect(() => {
-    console.log(recipe.Method.Steps)
     if(recipe.Method.Steps) {
       setSteps(recipe.Method.Steps)
     }
@@ -47,7 +46,6 @@ const EditMethod = ({recipe, setMethod}) => {
   };
 
   async function handleConfirm () {
-    console.log('Send method to server with recipe id', recipe._id)
     await setMethod(steps, recipe._id)
   }
 

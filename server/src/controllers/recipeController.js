@@ -8,6 +8,8 @@ module.exports = {
       try {
         Recipe.find({})
           .populate('AddedBy', 'Name')
+          .populate('Method', 'Steps')
+        //.populate('IngredientList')
           .exec(function(error, recipes) {
               if(recipes.length <= 0) {
                 return res.status(403).send({
@@ -31,6 +33,7 @@ module.exports = {
         Recipe.find({AddedBy})
         .populate('AddedBy', 'Name')
         .populate('Method', 'Steps')
+        //.populate('IngredientList')
         .exec(function(error, recipes) {
             if(recipes.length <= 0) {
               return res.status(403).send({
@@ -92,11 +95,7 @@ module.exports = {
             Method.findOneAndUpdate({Recipe: recipeId}, newMethod, options, function(err, updatedMethod){ 
               if(err) {
                 console.log(err)
-              }
-              console.log('Updated method is',updatedMethod)
-              res.json(
-                updatedMethod
-              )
+              }              
               const recipeUpdate = {
                 Method: updatedMethod._id
               }
@@ -104,14 +103,12 @@ module.exports = {
                 if(err) {
                   console.log(err)
                 }
-                console.log('New recipe iss', updatedRecipe)
-                // res.json(
-                //   updatedRecipe
-                // )
-              })
+                res.status(200).json({updatedRecipe})
+              }).populate('Method', 'Steps').populate('AddedBy', 'Name')
+              
             });
           
-        }              
+        }            
     },
 
 }
