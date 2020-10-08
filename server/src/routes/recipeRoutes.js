@@ -7,4 +7,5 @@ module.exports = (app) => {
 
     app.post('/api/recipes/add', middlewares.auth, RecipeController.addRecipe);
     app.post('/api/recipes/add/method', middlewares.auth, RecipeController.addMethod);
+    app.post('/api/recipes/add/ingredients', middlewares.auth, RecipeController.addIngredients);
 }

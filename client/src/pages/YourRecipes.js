@@ -35,14 +35,17 @@ const YourRecipes = ({
             >Your recipes!</Title>
             <SubTitle color="#FFF">Total recipes: {userRecipes.length}</SubTitle>
           <RecipeContainer>
-                {userRecipes.map((recipe, index) => {    
+              {userRecipes.length > 0 ? (
+                userRecipes.map((recipe, index) => {    
                   return(
                     <RecipeCard key={recipe._id}
                       recipe={recipe}
                     />
                   )
                 })
-                }
+              ) : (
+                <SubTitle color="#FFF">You have not created any recipes!</SubTitle>
+              )}
             </RecipeContainer>
          </CenterContent>
         </>

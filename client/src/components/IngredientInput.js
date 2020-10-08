@@ -25,7 +25,7 @@ export const IngredientInput = ({onSubmit}) => {
     if(!amount) {
       alert('Please enter an amount')
       return
-    } else if(!measurement) {
+    } else if(measurement === undefined) {
       alert('Please enter a measurement')
       return
     } else if(!ingredient) {
@@ -60,7 +60,7 @@ export const IngredientInput = ({onSubmit}) => {
               <option value="cups">Cup</option>
               <option value="teaspoons">Tsp</option>
               <option value="tablespoons">Tbsp</option>
-              <option value="none">No measurement</option>
+              <option value="">No measurement</option>
           </select>
 
           <label htmlFor="ingredient">Ingredient</label>

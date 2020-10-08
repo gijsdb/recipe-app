@@ -21,7 +21,7 @@ const EditMethod = ({recipe, setMethod}) => {
   
 
   useEffect(() => {
-    if(recipe.Method.Steps) {
+    if(recipe.Method) {
       setSteps(recipe.Method.Steps)
     }
   },[])
@@ -119,7 +119,6 @@ const EditMethod = ({recipe, setMethod}) => {
             </BtnBorder>
           </> 
        }
-      
     </>
   )
 
@@ -127,6 +126,13 @@ const EditMethod = ({recipe, setMethod}) => {
 
 const EditIngredients = ({recipe, setIngredients}) => {
   const [ingredientsList, setIngredientsList] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    if(recipe.IngredientList) {
+      setIngredientsList(recipe.IngredientList.List)
+    }
+  },[])
 
   const addIngredient = (newIngredient) => {
     setIngredientsList(ingredientsList.concat(newIngredient));
@@ -143,8 +149,11 @@ const EditIngredients = ({recipe, setIngredients}) => {
   }
 
   async function handleConfirm () {
-    console.log('Send ingredients list to server with recipe id', recipe._id)
-    setIngredients(ingredientsList)
+    const recipeId = recipe._id
+    const success = setIngredients(ingredientsList, recipeId)
+    if(success) {
+      history.push('/recipe');
+    }
   }
 
 
@@ -176,7 +185,18 @@ const EditIngredients = ({recipe, setIngredients}) => {
           </BtnBorder>
         </>
         ) : 
-          <></> 
+          <>
+            <p>No ingredients</p>
+            <BtnBorder
+              color="white"
+              borderColor="white"
+              className="btnHomeHover"
+              fontSize="1em"
+              marginTop="0.5em"
+              onClick={handleConfirm}
+              >Confirm
+            </BtnBorder>
+          </> 
        }
     </>
   )

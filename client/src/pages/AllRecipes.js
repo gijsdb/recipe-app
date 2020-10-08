@@ -43,14 +43,17 @@ const AllRecipes = ({
             <Title color="#FFF">All RECIPES</Title>
             <SubTitle color="#FFF">Total recipes: {recipes.length}</SubTitle>
             <RecipeContainer>
-                {recipes.map((recipe, index) => {    
-                return(
-                  <RecipeCard key={recipe._id}
-                    recipe={recipe}
-                  />
-                )
-                })
-                }
+
+              {recipes.length > 0 ? (
+                recipes.map((recipe, index) => {    
+                  return(
+                    <RecipeCard key={recipe._id}
+                      recipe={recipe}
+                    />
+                  )})
+              ) : (
+                <SubTitle color="#FFF">No recipes found!</SubTitle>
+              )}
             </RecipeContainer>
          </CenterContent>
         </>

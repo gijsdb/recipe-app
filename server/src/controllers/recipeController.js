@@ -9,7 +9,7 @@ module.exports = {
         Recipe.find({})
           .populate('AddedBy', 'Name')
           .populate('Method', 'Steps')
-        //.populate('IngredientList')
+          .populate('IngredientList', 'List')
           .exec(function(error, recipes) {
               if(recipes.length <= 0) {
                 return res.status(403).send({
@@ -33,7 +33,7 @@ module.exports = {
         Recipe.find({AddedBy})
         .populate('AddedBy', 'Name')
         .populate('Method', 'Steps')
-        //.populate('IngredientList')
+        .populate('IngredientList', 'List')
         .exec(function(error, recipes) {
             if(recipes.length <= 0) {
               return res.status(403).send({
@@ -60,7 +60,7 @@ module.exports = {
           AddedBy: req.body.AddedBy,
         });
         newRecipe.save();
-        const createdRecipe = await Recipe.findOne({Title: req.body.Title});
+        const createdRecipe = await Recipe.findOne({Title: req.body.Title}).populate('Method', 'Steps').populate('AddedBy', 'Name').populate('IngredientList', 'List') ;
         res.json({
           recipe: createdRecipe,
         })
@@ -70,45 +70,55 @@ module.exports = {
     },
 
     async addIngredients (req, res) {
-        try {
-          const newRecipe = new Ingredients({
-                
-          })
-          const createdIngredients = newRecipe.save();
-          res.json({
-            ingredientsList: createdIngredients,
-          })
-        } catch(e) {
-
-        }
+      const ingredients = req.body.ingredientsList;
+      const recipeId = req.body.recipeId;
+      const newIngredients = {
+        Recipe: recipeId,
+        List: ingredients
+      }
+      var options = { new: true, upsert: true }; 
+      if (recipeId) {
+          Ingredients.findOneAndUpdate({Recipe: recipeId}, newIngredients, options, function(err, updatedIngredients){ 
+            if(err) {
+              console.log(err)
+            }              
+            const ingredientsUpdate = {
+              IngredientList: updatedIngredients._id
+            }
+            Recipe.findOneAndUpdate({_id: recipeId}, ingredientsUpdate, {new:true}, function(err, updatedRecipe) {
+              if(err) {
+                console.log(err)
+              }
+              res.status(200).json({updatedRecipe})
+            }).populate('Method', 'Steps').populate('AddedBy', 'Name').populate('IngredientList', 'List')  
+          });
+      }            
     },
 
     async addMethod (req, res) {
-        const method = req.body.method;
-        const recipeId = req.body.recipeId;
-        const newMethod = {
-          Recipe: recipeId,
-          Steps: method
-        }
-        var options = { new: true, upsert: true }; 
-        if (recipeId) {
-            Method.findOneAndUpdate({Recipe: recipeId}, newMethod, options, function(err, updatedMethod){ 
+      const method = req.body.method;
+      const recipeId = req.body.recipeId;
+      const newMethod = {
+        Recipe: recipeId,
+        Steps: method
+      }
+      var options = { new: true, upsert: true }; 
+      if (recipeId) {
+          Method.findOneAndUpdate({Recipe: recipeId}, newMethod, options, function(err, updatedMethod){ 
+            if(err) {
+              console.log(err)
+            }              
+            const recipeUpdate = {
+              Method: updatedMethod._id
+            }
+            Recipe.findOneAndUpdate({_id: recipeId}, recipeUpdate, {new:true}, function(err, updatedRecipe) {
               if(err) {
                 console.log(err)
-              }              
-              const recipeUpdate = {
-                Method: updatedMethod._id
               }
-              Recipe.findOneAndUpdate({_id: recipeId}, recipeUpdate, {new:true}, function(err, updatedRecipe) {
-                if(err) {
-                  console.log(err)
-                }
-                res.status(200).json({updatedRecipe})
-              }).populate('Method', 'Steps').populate('AddedBy', 'Name')
-              
-            });
-          
-        }            
+              res.status(200).json({updatedRecipe})
+            }).populate('Method', 'Steps').populate('AddedBy', 'Name').populate('IngredientList', 'List')  
+          });
+      }            
     },
 
 }

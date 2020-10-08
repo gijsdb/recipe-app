@@ -87,10 +87,30 @@ export const setMethod = (method, recipeId) => (dispatch, getState) => {
     return true; 
 }
 
-export const setIngredients = (ingredientsList) => (dispatch, getState) => {
+export const setIngredients = (ingredientsList, recipeId) => (dispatch, getState) => {
   const token = getState().authReducer.token;
 
   console.log('Hit setIngredients with', ingredientsList)
+  
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': token
+    }
+  };
 
+  const body = JSON.stringify({ ingredientsList, recipeId });
+  axios
+    .post('http://localhost:8000/api/recipes/add/ingredients', body, config)
+    .then(res => {
+      const recipe = res.data.updatedRecipe
+      dispatch({
+        type: SET_CURRENT_RECIPE,
+        payload: recipe
+      })
+      return true;
+    })
+    .catch(err => console.log(err))
+    return true; 
 }
   
