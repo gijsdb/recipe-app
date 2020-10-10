@@ -2,7 +2,7 @@ import React ,{useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
 import { Container } from '../styles/PageLayout'
-import { Title, SubTitle } from '../styles/Text'
+import { Title, SubTitle, UnorderedList } from '../styles/Text'
 import styled from 'styled-components';
 import { BtnBorder } from '../styles/Buttons'
 
@@ -32,10 +32,11 @@ const RecipeInfo = ({
             <Title color="#FFF">
                 {recipe.Title}
             </Title>
-            <SubTitle color="#FFF">
-                {/* Added by: {recipe.AddedBy.Name} */}
-                {/* {console.log(recipe.AddedBy)} */}
-            </SubTitle>
+            {recipe.IngredientList ? (
+              <SubTitle color="#fff">Serves: {recipe.IngredientList.Serves}</SubTitle>
+            ) : (
+              <></>
+            )}
             <SubTitle color="#FFF">
                 Created at: {recipe.createdAt}
             </SubTitle>
@@ -43,11 +44,11 @@ const RecipeInfo = ({
                 <HalfCol>
                     <SubTitle color="#FFF">Ingredients</SubTitle>
                     {recipe.IngredientList ? (
-                    <ul style={{listStyleType: 'none'}}>
+                    <UnorderedList fontSize="1.5em" color="#fff" style={{listStyleType: 'none'}}>
                         {recipe.IngredientList.List.map((x, index) => {
                           return <li key={index}>{x.amount} {x.measurement} {x.ingredient}</li>;
                         })}
-                    </ul>
+                    </UnorderedList>
                    ) : (
                     <p>No ingredients</p>
                   )}
@@ -71,11 +72,11 @@ const RecipeInfo = ({
                 <HalfCol>
                   <SubTitle color="#FFF">Method</SubTitle>
                   {recipe.Method ? (
-                    <ul style={{listStyleType: 'none'}}>
+                    <UnorderedList fontSize="1.5em" color="#fff" style={{listStyleType: 'none'}}>
                         {recipe.Method.Steps.map((x, index) => {
                           return <li key={index}>{index + 1} - {x}</li>;
                         })}
-                    </ul>
+                    </UnorderedList>
                    ) : (
                     <p>No method</p>
                   )}

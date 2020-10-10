@@ -126,11 +126,13 @@ const EditMethod = ({recipe, setMethod}) => {
 const EditIngredients = ({recipe, setIngredients}) => {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [serves, setServes] = useState('');
+ 
   const history = useHistory();
 
   useEffect(() => {
     if(recipe.IngredientList) {
       setIngredientsList(recipe.IngredientList.List)
+      setServes(recipe.IngredientList.Serves)
     }
   },[])
 
@@ -175,7 +177,8 @@ const EditIngredients = ({recipe, setIngredients}) => {
         name="serves"
         onChange={handleChangeServes}
         autoComplete="off"
-        label="Serves" 
+        label="Serves"
+        value={serves} 
         variant="outlined"
       />
       <SubTitle color="#fff">Serves: {serves}</SubTitle>

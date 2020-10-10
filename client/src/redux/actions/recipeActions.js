@@ -90,8 +90,6 @@ export const setMethod = (method, recipeId) => (dispatch, getState) => {
 export const setIngredients = (ingredientsList, recipeId, serves) => (dispatch, getState) => {
   const token = getState().authReducer.token;
 
-  console.log('Hit setIngredients with', ingredientsList)
-  
   const config = {
     headers: {
       'Content-Type': 'application/json',

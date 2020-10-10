@@ -9,7 +9,7 @@ module.exports = {
         Recipe.find({})
           .populate('AddedBy', 'Name')
           .populate('Method', 'Steps')
-          .populate('IngredientList', 'List')
+          .populate('IngredientList', ['List','Serves'])
           .exec(function(error, recipes) {
               if(recipes.length <= 0) {
                 return res.status(403).send({
@@ -33,7 +33,7 @@ module.exports = {
         Recipe.find({AddedBy})
         .populate('AddedBy', 'Name')
         .populate('Method', 'Steps')
-        .populate('IngredientList', 'List')
+        .populate('IngredientList', ['List','Serves'])
         .exec(function(error, recipes) {
             if(recipes.length <= 0) {
               return res.status(403).send({
@@ -52,6 +52,7 @@ module.exports = {
     },
 
     async addRecipe (req, res) {
+      console.log('Adding a recipe', req.body.Title)
       try {
         const newRecipe = new Recipe({
           Title: req.body.Title, 
@@ -78,6 +79,7 @@ module.exports = {
         Serves: serves,
         List: ingredients
       }
+      console.log('Adding ingredients', ingredients)
       var options = { new: true, upsert: true }; 
       if (recipeId) {
           Ingredients.findOneAndUpdate({Recipe: recipeId}, newIngredients, options, function(err, updatedIngredients){ 
@@ -104,6 +106,7 @@ module.exports = {
         Recipe: recipeId,
         Steps: method
       }
+      console.log('Adding method', method)
       var options = { new: true, upsert: true }; 
       if (recipeId) {
           Method.findOneAndUpdate({Recipe: recipeId}, newMethod, options, function(err, updatedMethod){ 
