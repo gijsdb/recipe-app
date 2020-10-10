@@ -4,15 +4,12 @@ A basic recipe application using React, Express and Mongoose. Created as a side 
 
 # Current features
 - Register, Login, Logout
-- Add recipe to database without ingredients list or method 
-- View recipes added by yourself
-- View all recipes
-- View specific recipe
+- Add recipe
+- Add/Edit ingredients
+- Add/Edit method
 
 # Planned features
 - Deletion of recipes
-- Modify recipe ingredients list
-- Modify method 
 - Sub recipes eg. Lamb with mint sauce, Lamb being primary recipe with sauce sub recipe
 
 # Would be nice
