@@ -22,10 +22,10 @@ const RecipeCard  = ({
       return(
         <RecipeCardDiv>
             <h1>{recipe.Title}</h1>
-            <ul>
-                <li><strong>Date created</strong> - {recipe.createdAt}</li>
-                <li><strong>Created by</strong> - {recipe.AddedBy.Name}</li>
-            </ul>
+            <RecipeCardDetails>
+              <RecipeCardDetail><strong>Date created</strong> <br/> {recipe.createdAt}</RecipeCardDetail>
+              <RecipeCardDetail><strong>Created by</strong> <br/>  {recipe.AddedBy.Name}</RecipeCardDetail>  
+            </RecipeCardDetails>
             <BtnBorder 
               onClick={viewRecipe}
               color="white"
@@ -56,3 +56,11 @@ export const RecipeCardDiv = styled.div`
   border-radius: 10px
 `;
 
+export const RecipeCardDetails = styled.ul`
+  list-style: none;
+  padding: 0;
+`
+
+export const RecipeCardDetail = styled.li`
+  padding: 2px 0px;
+`

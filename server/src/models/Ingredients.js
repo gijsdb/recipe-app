@@ -8,6 +8,10 @@ const ingredientsSchema = new Schema({
         type: Schema.Types.ObjectId, 
         ref: 'Recipe'
     },
+    Serves: {
+        required: true,
+        type: String,
+    },
     List: {
         type: Array,
         unique: true,

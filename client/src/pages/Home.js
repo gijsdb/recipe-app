@@ -12,6 +12,7 @@ import AddRecipe from '../components/AddRecipe'
 import '../styles/padding.css'
 
 const Home = ({
+  user,
   logoutUser,
   isAuthenticated,
   error,
@@ -28,7 +29,7 @@ const Home = ({
       {isAuthenticated ? (
         <>
         <CenterContent>
-            <Title color="#fff">Welcome</Title>
+            <Title color="#fff">Hello {user.Name}</Title>
             <UnorderedList>
               <li className="listItemPadding">
                 <AddRecipe></AddRecipe>
@@ -75,7 +76,8 @@ const Home = ({
 }
 
 function mapStateToProps(state) { //redux mapping part
-  return { 
+  return {
+    user: state.authReducer.user,
     isAuthenticated: state.authReducer.isAuthenticated,
     error: state.error
   }

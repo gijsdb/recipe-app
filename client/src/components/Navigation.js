@@ -36,6 +36,7 @@ export const Navigation = ({navigateTarget, logoutUser}) => {
             color="white"
             borderColor="white"
             className="btnHomeHover"
+            marginLeft="10px"
         >
             Back
         </BtnBorder>

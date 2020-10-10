@@ -87,7 +87,7 @@ export const setMethod = (method, recipeId) => (dispatch, getState) => {
     return true; 
 }
 
-export const setIngredients = (ingredientsList, recipeId) => (dispatch, getState) => {
+export const setIngredients = (ingredientsList, recipeId, serves) => (dispatch, getState) => {
   const token = getState().authReducer.token;
 
   console.log('Hit setIngredients with', ingredientsList)
@@ -99,7 +99,7 @@ export const setIngredients = (ingredientsList, recipeId) => (dispatch, getState
     }
   };
 
-  const body = JSON.stringify({ ingredientsList, recipeId });
+  const body = JSON.stringify({ ingredientsList, recipeId, serves });
   axios
     .post('http://localhost:8000/api/recipes/add/ingredients', body, config)
     .then(res => {

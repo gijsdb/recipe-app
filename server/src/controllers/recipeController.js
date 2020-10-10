@@ -72,8 +72,10 @@ module.exports = {
     async addIngredients (req, res) {
       const ingredients = req.body.ingredientsList;
       const recipeId = req.body.recipeId;
+      const serves = req.body.serves;
       const newIngredients = {
         Recipe: recipeId,
+        Serves: serves,
         List: ingredients
       }
       var options = { new: true, upsert: true }; 

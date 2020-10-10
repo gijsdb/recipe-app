@@ -40,7 +40,7 @@ const AllRecipes = ({
         <>
         <Navigation navigateTarget="home"></Navigation>
         <CenterContent>
-            <Title color="#FFF">All RECIPES</Title>
+            <Title color="#FFF">All Recipes</Title>
             <SubTitle color="#FFF">Total recipes: {recipes.length}</SubTitle>
             <RecipeContainer>
 

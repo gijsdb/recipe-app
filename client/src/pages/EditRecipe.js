@@ -63,8 +63,7 @@ const EditMethod = ({recipe, setMethod}) => {
 
   return (
     <>
-    <Title color="#fff">Editing method</Title>
-    <SubTitle color="#fff">Editing for: {recipe.Title}</SubTitle>
+    <Title color="#fff">Editing method for {recipe.Title}</Title>
       <TextField 
         type="text"    
         placeholder="Enter Step"
@@ -126,6 +125,7 @@ const EditMethod = ({recipe, setMethod}) => {
 
 const EditIngredients = ({recipe, setIngredients}) => {
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [serves, setServes] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -136,6 +136,10 @@ const EditIngredients = ({recipe, setIngredients}) => {
 
   const addIngredient = (newIngredient) => {
     setIngredientsList(ingredientsList.concat(newIngredient));
+  }
+
+  const handleChangeServes = (e) => {
+    setServes(e.target.value)
   }
 
   const handleDeleteIngredient = (index) => {
@@ -150,7 +154,12 @@ const EditIngredients = ({recipe, setIngredients}) => {
 
   async function handleConfirm () {
     const recipeId = recipe._id
-    const success = setIngredients(ingredientsList, recipeId)
+    const lcserves = serves;
+    if(lcserves === '') {
+      alert('Please set an amount of servings for this ingredients list')
+      return;
+    }
+    const success = setIngredients(ingredientsList, recipeId, serves)
     if(success) {
       history.push('/recipe');
     }
@@ -159,9 +168,17 @@ const EditIngredients = ({recipe, setIngredients}) => {
 
   return (
     <>
-      <Title color="#fff">Editing ingredients</Title>
-      <SubTitle color="#fff">Editing for: {recipe.Title}</SubTitle>
-
+      <Title color="#fff">Editing ingredients for {recipe.Title}</Title>
+      <TextField 
+        type="number"    
+        placeholder="How many serves?"
+        name="serves"
+        onChange={handleChangeServes}
+        autoComplete="off"
+        label="Serves" 
+        variant="outlined"
+      />
+      <SubTitle color="#fff">Serves: {serves}</SubTitle>
       <IngredientInput onSubmit={addIngredient}></IngredientInput>
       {ingredientsList.length > 0 ? (
         <>
