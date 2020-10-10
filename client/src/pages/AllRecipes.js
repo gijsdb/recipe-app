@@ -1,10 +1,11 @@
 import React ,{useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
-import { Container, CenterContent, RecipeContainer } from '../styles/PageLayout'
-import { Title, SubTitle } from '../styles/Text'
-import  RecipeCard  from '../components/RecipeCard'
-import Navigation from '../components/Navigation'
+import { Container, CenterContent, RecipeContainer } from '../styles/PageLayout';
+import { Title, SubTitle } from '../styles/Text';
+import  RecipeCard  from '../components/RecipeCard';
+import Navigation from '../components/Navigation';
+import { RecipeSearch } from '../components/RecipeSearch';
 
 
 const fetchData = async (token) => {
@@ -26,13 +27,19 @@ const AllRecipes = ({
 }) => {
   const history = useHistory();
   const [recipes, setRecipes] = useState([])
+  const [searchTerm, setSearchTerm] = React.useState("");
 
   useEffect(() => {
     fetchData(token).then(recipes => {
       setRecipes(recipes);
-    })
+    });
   }, [])
 
+  const results = !searchTerm ? recipes : recipes.filter(recipe => recipe.Title.includes(searchTerm));
+
+  const handleSearchChange = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  }
 
   return (
     <Container>
@@ -42,10 +49,11 @@ const AllRecipes = ({
         <CenterContent>
             <Title color="#FFF">All Recipes</Title>
             <SubTitle color="#FFF">Total recipes: {recipes.length}</SubTitle>
+            <RecipeSearch onChange={handleSearchChange}></RecipeSearch>
             <RecipeContainer>
 
               {recipes.length > 0 ? (
-                recipes.map((recipe, index) => {    
+                results.map((recipe, index) => {    
                   return(
                     <RecipeCard key={recipe._id}
                       recipe={recipe}
