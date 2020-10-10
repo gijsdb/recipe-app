@@ -44,7 +44,7 @@ const RecipeInfo = ({
                 <HalfCol>
                     <SubTitle color="#FFF">Ingredients</SubTitle>
                     {recipe.IngredientList ? (
-                    <UnorderedList fontSize="1.5em" color="#fff" style={{listStyleType: 'none'}}>
+                    <UnorderedList fontSize="1em" color="#fff" style={{listStyleType: 'none'}}>
                         {recipe.IngredientList.List.map((x, index) => {
                           return <li key={index}>{x.amount} {x.measurement} {x.ingredient}</li>;
                         })}
@@ -72,7 +72,7 @@ const RecipeInfo = ({
                 <HalfCol>
                   <SubTitle color="#FFF">Method</SubTitle>
                   {recipe.Method ? (
-                    <UnorderedList fontSize="1.5em" color="#fff" style={{listStyleType: 'none'}}>
+                    <UnorderedList fontSize="1em" color="#fff" style={{listStyleType: 'none'}}>
                         {recipe.Method.Steps.map((x, index) => {
                           return <li key={index}>{index + 1} - {x}</li>;
                         })}

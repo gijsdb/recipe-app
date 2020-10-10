@@ -23,8 +23,8 @@ export const RegisterTitle = styled(Title)`
 
 export const SubTitle = styled.h2`
   color:  ${props => props.color};
-  font-size: 2.25em;
-  font-weight: 800;
+  font-size: ${props => props.fontSize || '2.25em'};
+  font-weight: ${props => props.fontWeight || '800'};
 `;
 
 export const UnorderedList = styled.ul`

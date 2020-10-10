@@ -48,12 +48,14 @@ function mapStateToProps(state) { //redux mapping part
 export default connect(mapStateToProps, {setCurrentRecipe})(RecipeCard) //redux connecting
 
 export const RecipeCardDiv = styled.div`
-  width: 20vw;
-  padding: 1em 0em;
+  padding: 1em 1em;
   color: #fff;
-  margin: 10px 10px;
+  margin: 10px auto;
   border: #fff solid 2px;
-  border-radius: 10px
+  border-radius: 10px;
+  @media (min-width: 425px) {
+    margin: 10px 10px;
+  }
 `;
 
 export const RecipeCardDetails = styled.ul`

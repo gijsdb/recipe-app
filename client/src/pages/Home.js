@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { logoutUser } from '../redux/actions/authActions'
 import { Container, CenterContent } from '../styles/PageLayout'
 import { UnorderedList } from '../styles/Text'
-import { Title } from '../styles/Text'
+import { Title, SubTitle } from '../styles/Text'
 import { BtnBorder } from '../styles/Buttons'
-
+import { AiFillGithub } from 'react-icons/ai';
 import AddRecipe from '../components/AddRecipe'
 
 import '../styles/padding.css'
@@ -66,6 +66,7 @@ const Home = ({
             >
               Logout
             </BtnBorder>
+            <div><SubTitle fontSize="2em" color="#fff"><AiFillGithub></AiFillGithub></SubTitle></div>
          </CenterContent>
         </>
     ) : 

@@ -94,7 +94,7 @@ module.exports = {
                 console.log(err)
               }
               res.status(200).json({updatedRecipe})
-            }).populate('Method', 'Steps').populate('AddedBy', 'Name').populate('IngredientList', 'List')  
+            }).populate('Method', 'Steps').populate('AddedBy', 'Name').populate('IngredientList', ['List', 'Serves'])  
           });
       }            
     },

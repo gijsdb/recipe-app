@@ -102,6 +102,7 @@ export const setIngredients = (ingredientsList, recipeId, serves) => (dispatch, 
     .post('http://localhost:8000/api/recipes/add/ingredients', body, config)
     .then(res => {
       const recipe = res.data.updatedRecipe
+      console.log('recipe iss', recipe)
       dispatch({
         type: SET_CURRENT_RECIPE,
         payload: recipe

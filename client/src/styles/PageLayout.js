@@ -4,7 +4,6 @@ export const Container = styled.div`
   min-height: 100vh;
   background: rgb(238,180,98);
   background: linear-gradient(170deg, rgba(238,180,98,1) 0%, rgba(238,180,98,1) 23%, rgba(205,118,114,1) 100%);
-  padding: 0;
   display: flex;
 `;
 
@@ -47,6 +46,7 @@ export const InputContainer = styled.div`
 export const CenterContent = styled.div`
   align-self: center;
   margin: 0 auto;
+  padding: 2em 0em;
   text-align: center;
 `
 
@@ -55,5 +55,6 @@ export const RecipeContainer = styled.div`
   flex-wrap: wrap;
   margin: 5vw 5vw;
   max-height: 50vh;
+  mag-width: 80vw;
   overflow-y: scroll;
 `
