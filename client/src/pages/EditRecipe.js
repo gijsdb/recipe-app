@@ -1,54 +1,56 @@
-import React ,{useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { connect } from "react-redux";
-import { Container, CenterContent } from '../styles/PageLayout'
-import { Title, SubTitle } from '../styles/Text'
-import { BtnBorder } from '../styles/Buttons'
-import Navigation from '../components/Navigation'
-import { useLocation } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Container, CenterContent } from '../styles/PageLayout';
+import { Title, SubTitle } from '../styles/Text';
+import { BtnBorder } from '../styles/Buttons';
+import Navigation from '../components/Navigation';
+import { useLocation } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { UnorderedList } from '../styles/Text';
 import { AiOutlineDelete } from 'react-icons/ai';
-import {IngredientInput} from '../components/IngredientInput';
-import {setIngredients, setMethod} from '../redux/actions/recipeActions';
+import { IngredientInput } from '../components/IngredientInput';
+import {
+  setIngredients,
+  setMethod,
+} from '../redux/actions/recipeActions';
 
-const EditMethod = ({recipe, setMethod}) => {
+const EditMethod = ({ recipe, setMethod }) => {
   const [steps, setSteps] = useState([]);
   const [step, setStep] = useState([]);
   const history = useHistory();
   const stepInput = useRef(null);
   const handleChangeStep = (e) => setStep(e.target.value);
-  
 
   useEffect(() => {
-    if(recipe.Method) {
-      setSteps(recipe.Method.Steps)
+    if (recipe.Method) {
+      setSteps(recipe.Method.Steps);
     }
-  },[])
+  }, []);
 
   const handleAddStep = () => {
-    if(step === '') {
-      alert('Please enter a step')
+    if (step === '') {
+      alert('Please enter a step');
       throw new Error('You must enter a step');
     }
-    
-    try {
-      setSteps(steps.concat(step))
-      stepInput.current.children[1].firstChild.value = ''
-    } catch(e) {
-      throw new Error(e.message)
-    }
-  }
 
-  document.body.onkeydown = function(e) {
+    try {
+      setSteps(steps.concat(step));
+      stepInput.current.children[1].firstChild.value = '';
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  };
+
+  document.body.onkeydown = function (e) {
     if (e.key == 'Enter') {
       handleAddStep();
     }
   };
 
-  async function handleConfirm () {
-    const success = await setMethod(steps, recipe._id)
-    if(success) {
+  async function handleConfirm() {
+    const success = await setMethod(steps, recipe._id);
+    if (success) {
       history.push('/recipe');
     }
   }
@@ -59,90 +61,100 @@ const EditMethod = ({recipe, setMethod}) => {
       stepsCopy.splice(index, 1);
     }
     setSteps(stepsCopy);
-  }
+  };
 
   return (
     <>
-    <Title color="#fff">Editing method for {recipe.Title}</Title>
-      <TextField 
-        type="text"    
+      <Title color="#fff">Editing method for {recipe.Title}</Title>
+      <TextField
+        type="text"
         placeholder="Enter Step"
         name="step"
         onChange={handleChangeStep}
         autoComplete="off"
-        label="Enter Step" 
+        label="Enter Step"
         variant="outlined"
         fullWidth={true}
         ref={stepInput}
       />
-       <BtnBorder
-          color="white"
-          borderColor="white"
-          className="btnHomeHover"
-          fontSize="1em"
-          marginTop="0.5em"
-          onClick={handleAddStep}
-       >Add
-       </BtnBorder>
-       {steps.length > 0 ? (
+      <BtnBorder
+        color="white"
+        borderColor="white"
+        className="btnHomeHover"
+        fontSize="1em"
+        marginTop="0.5em"
+        onClick={handleAddStep}
+      >
+        Add
+      </BtnBorder>
+      {steps.length > 0 ? (
         <>
           <UnorderedList color="#fff" fontSize="1.5em">
             {steps.map((step, index) => {
-              return(
-                <li key={index}><p>{index + 1} - {step} <AiOutlineDelete className="methodDeleteHover" onClick={() => handleDeleteStep(index)}/></p></li>
-              )
+              return (
+                <li key={index}>
+                  <p>
+                    {index + 1} - {step}{' '}
+                    <AiOutlineDelete
+                      className="methodDeleteHover"
+                      onClick={() => handleDeleteStep(index)}
+                    />
+                  </p>
+                </li>
+              );
             })}
           </UnorderedList>
 
           <BtnBorder
-          color="white"
-          borderColor="white"
-          className="btnHomeHover"
-          fontSize="1em"
-          marginTop="0.5em"
-          onClick={handleConfirm}
-          >Confirm
+            color="white"
+            borderColor="white"
+            className="btnHomeHover"
+            fontSize="1em"
+            marginTop="0.5em"
+            onClick={handleConfirm}
+          >
+            Confirm
           </BtnBorder>
         </>
-        ) : 
-          <>
-            <p>No steps</p>
-            <BtnBorder
-              color="white"
-              borderColor="white"
-              className="btnHomeHover"
-              fontSize="1em"
-              marginTop="0.5em"
-              onClick={handleConfirm}
-              >Confirm
-            </BtnBorder>
-          </> 
-       }
+      ) : (
+        <>
+          <p>No steps</p>
+          <BtnBorder
+            color="white"
+            borderColor="white"
+            className="btnHomeHover"
+            fontSize="1em"
+            marginTop="0.5em"
+            onClick={handleConfirm}
+          >
+            Confirm
+          </BtnBorder>
+        </>
+      )}
     </>
-  )
+  );
+};
 
-}
-
-const EditIngredients = ({recipe, setIngredients}) => {
+const EditIngredients = ({ recipe, setIngredients }) => {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [serves, setServes] = useState('');
- 
+
   const history = useHistory();
 
   useEffect(() => {
-    if(recipe.IngredientList) {
-      setIngredientsList(recipe.IngredientList.List)
-      setServes(recipe.IngredientList.Serves)
+    if (recipe.IngredientList) {
+      setIngredientsList(recipe.IngredientList.List);
+      setServes(recipe.IngredientList.Serves);
     }
-  },[])
+  }, []);
 
   const addIngredient = (newIngredient) => {
     setIngredientsList(ingredientsList.concat(newIngredient));
-  }
+  };
 
   const handleChangeServes = (e) => {
-    setServes(e.target.value)
-  }
+    setServes(e.target.value);
+  };
 
   const handleDeleteIngredient = (index) => {
     var ingredientsCopy = [...ingredientsList];
@@ -151,34 +163,37 @@ const EditIngredients = ({recipe, setIngredients}) => {
       ingredientsCopy.splice(index, 1);
     }
 
-    setIngredientsList(ingredientsCopy)
-  }
+    setIngredientsList(ingredientsCopy);
+  };
 
-  async function handleConfirm () {
-    const recipeId = recipe._id
+  async function handleConfirm() {
+    const recipeId = recipe._id;
     const lcserves = serves;
-    if(lcserves === '') {
-      alert('Please set an amount of servings for this ingredients list')
+    if (lcserves === '') {
+      alert(
+        'Please set an amount of servings for this ingredients list',
+      );
       return;
     }
-    const success = setIngredients(ingredientsList, recipeId, serves)
-    if(success) {
+    const success = setIngredients(ingredientsList, recipeId, serves);
+    if (success) {
       history.push('/recipe');
     }
   }
 
-
   return (
     <>
-      <Title color="#fff">Editing ingredients for {recipe.Title}</Title>
-      <TextField 
-        type="number"    
+      <Title color="#fff">
+        Editing ingredients for {recipe.Title}
+      </Title>
+      <TextField
+        type="number"
         placeholder="How many serves?"
         name="serves"
         onChange={handleChangeServes}
         autoComplete="off"
         label="Serves"
-        value={serves} 
+        value={serves}
         variant="outlined"
       />
       <SubTitle color="#fff">Serves: {serves}</SubTitle>
@@ -187,42 +202,50 @@ const EditIngredients = ({recipe, setIngredients}) => {
         <>
           <UnorderedList color="#fff" fontSize="1.5em">
             {ingredientsList.map((ingredient, index) => {
-              
-              return(
-                <li key={index}><p>{ingredient.amount} {ingredient.measurement} {ingredient.ingredient} <AiOutlineDelete className="methodDeleteHover" onClick={() => handleDeleteIngredient(index)}/></p></li>
-              )
+              return (
+                <li key={index}>
+                  <p>
+                    {ingredient.amount} {ingredient.measurement}{' '}
+                    {ingredient.ingredient}{' '}
+                    <AiOutlineDelete
+                      className="methodDeleteHover"
+                      onClick={() => handleDeleteIngredient(index)}
+                    />
+                  </p>
+                </li>
+              );
             })}
           </UnorderedList>
 
           <BtnBorder
-          color="white"
-          borderColor="white"
-          className="btnHomeHover"
-          fontSize="1em"
-          marginTop="0.5em"
-          onClick={handleConfirm}
-          >Confirm
+            color="white"
+            borderColor="white"
+            className="btnHomeHover"
+            fontSize="1em"
+            marginTop="0.5em"
+            onClick={handleConfirm}
+          >
+            Confirm
           </BtnBorder>
         </>
-        ) : 
-          <>
-            <p>No ingredients</p>
-            <BtnBorder
-              color="white"
-              borderColor="white"
-              className="btnHomeHover"
-              fontSize="1em"
-              marginTop="0.5em"
-              onClick={handleConfirm}
-              >Confirm
-            </BtnBorder>
-          </> 
-       }
+      ) : (
+        <>
+          <p>No ingredients</p>
+          <BtnBorder
+            color="white"
+            borderColor="white"
+            className="btnHomeHover"
+            fontSize="1em"
+            marginTop="0.5em"
+            onClick={handleConfirm}
+          >
+            Confirm
+          </BtnBorder>
+        </>
+      )}
     </>
-  )
-
-}
-
+  );
+};
 
 const EditRecipe = ({
   setMethod,
@@ -237,45 +260,57 @@ const EditRecipe = ({
   const [altering, setAltering] = useState('');
 
   useEffect(() => {
-    if(location.state === undefined) return
-    if(location.state.altering === 'ingredients') setAltering('ingredients')
-    if(location.state.altering === 'method') setAltering('method')
-  },[])
+    if (location.state === undefined) return;
+    if (location.state.altering === 'ingredients')
+      setAltering('ingredients');
+    if (location.state.altering === 'method') setAltering('method');
+  }, []);
 
   return (
     <Container>
       {isAuthenticated ? (
-
         <>
-            <Navigation navigateTarget="recipe"></Navigation>
-           
-              <CenterContent>
-                {altering === 'ingredients' && 
-                  <EditIngredients  setIngredients={setIngredients} recipe={recipe}></EditIngredients>
-                }
-                {altering === 'method' && 
-                  <EditMethod setMethod={setMethod} recipe={recipe}></EditMethod>
-                }
-                {location.state === undefined && 
-                  <p>Please select what you want to edit on the recipe screen of your own recipe</p>
-                }
-              </CenterContent>
-        </>
+          <Navigation navigateTarget="recipe"></Navigation>
 
-    ) : 
-      history.push('/')
-    }
+          <CenterContent>
+            {altering === 'ingredients' && (
+              <EditIngredients
+                setIngredients={setIngredients}
+                recipe={recipe}
+              ></EditIngredients>
+            )}
+            {altering === 'method' && (
+              <EditMethod
+                setMethod={setMethod}
+                recipe={recipe}
+              ></EditMethod>
+            )}
+            {location.state === undefined && (
+              <p>
+                Please select what you want to edit on the recipe
+                screen of your own recipe
+              </p>
+            )}
+          </CenterContent>
+        </>
+      ) : (
+        history.push('/')
+      )}
     </Container>
   );
-}
+};
 
-function mapStateToProps(state) { //redux mapping part
-  return { 
+function mapStateToProps(state) {
+  //redux mapping part
+  return {
     isAuthenticated: state.authReducer.isAuthenticated,
     user: state.authReducer.user,
     error: state.errorReducer,
-    recipe: state.recipeReducer.currentRecipe
-  }
+    recipe: state.recipeReducer.currentRecipe,
+  };
 }
 
-export default connect(mapStateToProps, {setMethod, setIngredients})(EditRecipe) //redux connecting
+export default connect(mapStateToProps, {
+  setMethod,
+  setIngredients,
+})(EditRecipe); //redux connecting

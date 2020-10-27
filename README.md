@@ -7,6 +7,7 @@ A basic recipe application using React, Express and Mongoose. Created as a side 
 - Add recipe
 - Add/Edit ingredients
 - Add/Edit method
+- Filter recipes by title
 
 # Planned features
 - Deletion of recipes

@@ -31,3 +31,14 @@
     font-size: 1.5em;
     cursor: pointer;
 }
+
+.btnDeleteHover {
+    transition: 0.5s;
+}
+
+.btnDeleteHover:hover {
+    color:#fff;
+    background-color:red;
+    transition: 0.5s;
+    cursor: pointer;
+}

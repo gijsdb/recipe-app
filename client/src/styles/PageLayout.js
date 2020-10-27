@@ -2,8 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   min-height: 100vh;
-  background: rgb(238,180,98);
-  background: linear-gradient(170deg, rgba(238,180,98,1) 0%, rgba(238,180,98,1) 23%, rgba(205,118,114,1) 100%);
+  background: rgb(238, 180, 98);
+  background: linear-gradient(
+    170deg,
+    rgba(238, 180, 98, 1) 0%,
+    rgba(238, 180, 98, 1) 23%,
+    rgba(205, 118, 114, 1) 100%
+  );
   display: flex;
 `;
 
@@ -24,7 +29,7 @@ export const ContentHalf = styled.div`
 export const ImageHalf = styled.div`
   height: 100vh;
   width: 50vw;
-  background-image: url("https://source.unsplash.com/random");
+  background-image: url('https://source.unsplash.com/random');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -41,14 +46,14 @@ export const ImageHalf = styled.div`
 
 export const InputContainer = styled.div`
   margin: 25px 0px;
-`
+`;
 
 export const CenterContent = styled.div`
   align-self: center;
   margin: 0 auto;
   padding: 2em 0em;
   text-align: center;
-`
+`;
 
 export const RecipeContainer = styled.div`
   display: flex;
@@ -57,4 +62,4 @@ export const RecipeContainer = styled.div`
   max-height: 50vh;
   mag-width: 80vw;
   overflow-y: scroll;
-`
+`;
