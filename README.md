@@ -14,3 +14,8 @@ A basic recipe application using React, Express and Mongoose. Created as a side 
 
 - Deletion of recipes
 - Sub recipes eg. Lamb with mint sauce, Lamb being primary recipe with sauce sub recipe
+
+# ToDo
+
+- Tidy styled components
+- Tidy UI

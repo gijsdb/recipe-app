@@ -27,7 +27,7 @@ export const SubTitle = styled.h2`
 
 export const UnorderedList = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: ${(props) => props.padding || 'none'};
   font-size: ${(props) => props.fontSize || '2em'};
   font-weight: 400;
   color: ${(props) => props.color};

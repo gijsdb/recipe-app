@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { BtnBorder } from '../styles/Buttons';
 
@@ -43,39 +44,46 @@ export const IngredientInput = ({ onSubmit }) => {
   return (
     <div>
       <form onSubmit={handleAddIngredientClick}>
-        <label htmlFor="amount">Amount</label>
-        <input
-          type="number"
-          value={amount}
-          name="amount"
-          onChange={handleAmountChange}
-        />
+        <InputContainer>
+          <TextBoxLabel>Amount</TextBoxLabel>
+          <TextBox
+            type="number"
+            value={amount}
+            name="amount"
+            onChange={handleAmountChange}
+          />
+        </InputContainer>
 
-        <label htmlFor="measurement">Measurement</label>
-        <select
-          name="measurement"
-          value={measurement}
-          onChange={handleMeasurementChange}
-        >
-          <option value="">--Please choose an option--</option>
-          <option value="milligrams">Milligrams</option>
-          <option value="grams">Grams</option>
-          <option value="kilograms">Kilograms</option>
-          <option value="pounds">Pounds</option>
-          <option value="ounces">Ounces</option>
-          <option value="cups">Cup</option>
-          <option value="teaspoons">Tsp</option>
-          <option value="tablespoons">Tbsp</option>
-          <option value="">No measurement</option>
-        </select>
+        <InputContainer>
+          <TextBoxLabel>Measurement</TextBoxLabel>
+          <Select
+            name="measurement"
+            value={measurement}
+            onChange={handleMeasurementChange}
+          >
+            <option value="">--Please select a measurement--</option>
+            <option value="milligrams">Milligrams</option>
+            <option value="grams">Grams</option>
+            <option value="kilograms">Kilograms</option>
+            <option value="pounds">Pounds</option>
+            <option value="ounces">Ounces</option>
+            <option value="cups">Cup</option>
+            <option value="teaspoons">Tsp</option>
+            <option value="tablespoons">Tbsp</option>
+            <option value="">No measurement</option>
+          </Select>
+        </InputContainer>
 
-        <label htmlFor="ingredient">Ingredient</label>
-        <input
-          value={ingredient}
-          type="text"
-          name="ingredient"
-          onChange={handleIngredientChange}
-        />
+        <InputContainer>
+          <TextBoxLabel>Ingredient</TextBoxLabel>
+          <TextBox
+            value={ingredient}
+            type="text"
+            name="ingredient"
+            onChange={handleIngredientChange}
+          />
+        </InputContainer>
+
         <BtnBorder
           color="white"
           borderColor="white"
@@ -90,3 +98,39 @@ export const IngredientInput = ({ onSubmit }) => {
     </div>
   );
 };
+
+export const TextBox = styled.input`
+  padding: 12px;
+  font-size: 17px;
+  text-align: center;
+  border-width: 5px;
+  border-radius: 9px;
+  border-style: solid;
+  border-color: #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  margin-left: 0.5em;
+`;
+
+export const Select = styled.select`
+  padding: 12px;
+  font-size: 17px;
+  text-align: center;
+  border-width: 5px;
+  border-radius: 9px;
+  border-style: solid;
+  border-color: #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  margin-left: 0.5em;
+`;
+
+export const TextBoxLabel = styled.label`
+  color: #fff;
+  font-size: 1.25em;
+  display: block;
+`;
+
+export const InputContainer = styled.div`
+  margin: 1em 0em;
+`;

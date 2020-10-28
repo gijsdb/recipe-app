@@ -14,6 +14,7 @@ import {
   setIngredients,
   setMethod,
 } from '../redux/actions/recipeActions';
+import styled from 'styled-components';
 
 const EditMethod = ({ recipe, setMethod }) => {
   const [steps, setSteps] = useState([]);
@@ -198,55 +199,71 @@ const EditIngredients = ({ recipe, setIngredients }) => {
         variant="outlined"
       />
       <SubTitle color="#fff">Serves: {serves}</SubTitle>
-      <IngredientInput onSubmit={addIngredient}></IngredientInput>
-      {ingredientsList.length > 0 ? (
-        <>
-          <UnorderedList color="#fff" fontSize="1.5em">
-            {ingredientsList.map((ingredient, index) => {
-              return (
-                <li key={index}>
-                  <p>
-                    {ingredient.amount} {ingredient.measurement}{' '}
-                    {ingredient.ingredient}{' '}
-                    <AiOutlineDelete
-                      className="methodDeleteHover"
-                      onClick={() => handleDeleteIngredient(index)}
-                    />
-                  </p>
-                </li>
-              );
-            })}
-          </UnorderedList>
+      <IngredientContainer>
+        <HalfCol>
+          <IngredientInput onSubmit={addIngredient}></IngredientInput>
+        </HalfCol>
+        <HalfCol>
+          {ingredientsList.length > 0 ? (
+            <>
+              <UnorderedList color="#fff" fontSize="1.5em" padding="">
+                {ingredientsList.map((ingredient, index) => {
+                  return (
+                    <li key={index}>
+                      <p>
+                        {ingredient.amount} {ingredient.measurement}{' '}
+                        {ingredient.ingredient}{' '}
+                        <AiOutlineDelete
+                          className="methodDeleteHover"
+                          onClick={() =>
+                            handleDeleteIngredient(index)
+                          }
+                        />
+                      </p>
+                    </li>
+                  );
+                })}
+              </UnorderedList>
 
-          <BtnBorder
-            color="white"
-            borderColor="white"
-            className="btnHomeHover"
-            fontSize="1em"
-            marginTop="0.5em"
-            onClick={handleConfirm}
-          >
-            Confirm
-          </BtnBorder>
-        </>
-      ) : (
-        <>
-          <p>No ingredients</p>
-          <BtnBorder
-            color="white"
-            borderColor="white"
-            className="btnHomeHover"
-            fontSize="1em"
-            marginTop="0.5em"
-            onClick={handleConfirm}
-          >
-            Confirm
-          </BtnBorder>
-        </>
-      )}
+              <BtnBorder
+                color="white"
+                borderColor="white"
+                className="btnHomeHover"
+                fontSize="1em"
+                marginTop="0.5em"
+                onClick={handleConfirm}
+              >
+                Confirm
+              </BtnBorder>
+            </>
+          ) : (
+            <>
+              <p>No ingredients</p>
+              <BtnBorder
+                color="white"
+                borderColor="white"
+                className="btnHomeHover"
+                fontSize="1em"
+                marginTop="0.5em"
+                onClick={handleConfirm}
+              >
+                Confirm
+              </BtnBorder>
+            </>
+          )}
+        </HalfCol>
+      </IngredientContainer>
     </>
   );
 };
+
+export const IngredientContainer = styled.div`
+  display: flex;
+`;
+export const HalfCol = styled.div`
+  width: 50%;
+  margin: 0em 1em;
+`;
 
 const EditRecipe = ({
   setMethod,
