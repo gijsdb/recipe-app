@@ -26,7 +26,7 @@ const EditMethod = ({ recipe, setMethod }) => {
     if (recipe.Method) {
       setSteps(recipe.Method.Steps);
     }
-  }, []);
+  }, [recipe.Method]);
 
   const handleAddStep = () => {
     if (step === '') {
@@ -42,8 +42,8 @@ const EditMethod = ({ recipe, setMethod }) => {
     }
   };
 
-  document.body.onkeydown = function (e) {
-    if (e.key == 'Enter') {
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
       handleAddStep();
     }
   };
@@ -72,6 +72,7 @@ const EditMethod = ({ recipe, setMethod }) => {
         name="step"
         onChange={handleChangeStep}
         autoComplete="off"
+        onKeyPress={handleEnterKey}
         label="Enter Step"
         variant="outlined"
         fullWidth={true}
@@ -146,7 +147,7 @@ const EditIngredients = ({ recipe, setIngredients }) => {
       setIngredientsList(recipe.IngredientList.List);
       setServes(recipe.IngredientList.Serves);
     }
-  }, []);
+  }, [recipe.IngredientList]);
 
   const addIngredient = (newIngredient) => {
     setIngredientsList(ingredientsList.concat(newIngredient));
@@ -264,7 +265,7 @@ const EditRecipe = ({
     if (location.state.altering === 'ingredients')
       setAltering('ingredients');
     if (location.state.altering === 'method') setAltering('method');
-  }, []);
+  }, [location.state]);
 
   return (
     <Container>

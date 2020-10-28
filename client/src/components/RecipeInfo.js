@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container } from '../styles/PageLayout';
 import { Title, SubTitle, UnorderedList } from '../styles/Text';
 import styled from 'styled-components';
 import { BtnBorder } from '../styles/Buttons';
@@ -17,7 +16,7 @@ const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
     ) {
       setIsOwnRecipe(true);
     }
-  }, []);
+  }, [recipe.AddedBy, user._id, user.id]);
 
   const handleDelete = () => {
     const result = window.confirm('Are you sure you want to delete?');
@@ -50,7 +49,7 @@ const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
             <></>
           )}
           <SubTitle color="#FFF">
-            Created at: {recipe.createdAt}
+            Created at: {recipe.createdAt.split('T')[0]}
           </SubTitle>
           <RecipeMethodAndIngredients>
             <HalfCol>

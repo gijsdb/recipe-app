@@ -23,7 +23,7 @@ const YourRecipes = ({
   const [searchTerm, setSearchTerm] = React.useState('');
 
   useEffect(() => {
-    (async function anyNameFunction() {
+    (async function fn() {
       await retrieveMyRecipes(user._id);
     })();
   }, []);

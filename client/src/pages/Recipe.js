@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, CenterContent } from '../styles/PageLayout';
-import { Title } from '../styles/Text';
-import { BtnBorder } from '../styles/Buttons';
 import Navigation from '../components/Navigation';
 import RecipeInfo from '../components/RecipeInfo';
 

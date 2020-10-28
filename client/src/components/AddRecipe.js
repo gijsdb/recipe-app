@@ -23,7 +23,8 @@ const AddRecipe = ({
   async function handleClick() {
     try {
       if (Title === '') {
-        throw new Error('You must set a title');
+        alert('You must set a title');
+        return;
       }
 
       const Recipe = {
@@ -36,6 +37,12 @@ const AddRecipe = ({
       throw err;
     }
   }
+
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
 
   async function Navigate() {
     setTimeout(function () {
@@ -75,6 +82,7 @@ const AddRecipe = ({
                   autoComplete="off"
                   label="Recipe Title"
                   variant="outlined"
+                  onKeyPress={handleEnterKey}
                   onChange={handleChangeRecipeTitle}
                 />
                 <BtnBorder
