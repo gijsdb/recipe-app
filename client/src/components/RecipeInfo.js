@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Title, SubTitle, UnorderedList } from '../styles/Text';
 import styled from 'styled-components';
+
+import { Title, SubTitle, Text } from '../styles/Text';
+import { UnorderedList, HalfCol } from '../styles/PageLayout';
 import { BtnBorder } from '../styles/Buttons';
 
 const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
@@ -42,17 +44,17 @@ const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
             <></>
           )}
           {recipe.IngredientList ? (
-            <SubTitle color="#fff">
-              Serves: {recipe.IngredientList.Serves}
-            </SubTitle>
+            <>
+              <SubTitle color="#fff">Serves:</SubTitle>
+              <Text>{recipe.IngredientList.Serves}</Text>
+            </>
           ) : (
             <></>
           )}
-          <SubTitle color="#FFF">
-            Created at: {recipe.createdAt.split('T')[0]}
-          </SubTitle>
+          <SubTitle color="#FFF">Created at:</SubTitle>
+          <Text margin="0">{recipe.createdAt.split('T')[0]}</Text>
           <RecipeMethodAndIngredients>
-            <HalfCol>
+            <HalfCol margin="0em 1em 0em 0em">
               <SubTitle color="#FFF">Ingredients</SubTitle>
               {recipe.IngredientList ? (
                 <UnorderedList
@@ -63,13 +65,15 @@ const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
                   {recipe.IngredientList.List.map((x, index) => {
                     return (
                       <li key={index}>
-                        {x.amount} {x.measurement} {x.ingredient}
+                        <Text>
+                          {x.amount} {x.measurement} {x.ingredient}
+                        </Text>
                       </li>
                     );
                   })}
                 </UnorderedList>
               ) : (
-                <p>No ingredients</p>
+                <Text margin="5px 0px">No Ingredients</Text>
               )}
               {isOwnRecipe ? (
                 <BtnBorder
@@ -89,9 +93,9 @@ const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
                 <></>
               )}
             </HalfCol>
-            <HalfCol>
+            <HalfCol margin="0em 0em 0em 1em">
               <SubTitle color="#FFF">Method</SubTitle>
-              {recipe.Method ? (
+              {recipe.Method || recipe.length === 0 ? (
                 <UnorderedList
                   fontSize="1em"
                   color="#fff"
@@ -100,13 +104,15 @@ const RecipeInfo = ({ isAuthenticated, recipe, user, error }) => {
                   {recipe.Method.Steps.map((x, index) => {
                     return (
                       <li key={index}>
-                        {index + 1} - {x}
+                        <Text margin="5px 0px">
+                          {index + 1} - {x}
+                        </Text>
                       </li>
                     );
                   })}
                 </UnorderedList>
               ) : (
-                <p>No method</p>
+                <Text margin="5px 0px">No method</Text>
               )}
               {isOwnRecipe ? (
                 <BtnBorder
@@ -148,7 +154,4 @@ export default connect(mapStateToProps, {})(RecipeInfo);
 
 export const RecipeMethodAndIngredients = styled.div`
   display: flex;
-`;
-export const HalfCol = styled.div`
-  width: 50%;
 `;

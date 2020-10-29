@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextBox, Select, TextBoxLabel } from '../styles/Input';
 import styled from 'styled-components';
 
 import { BtnBorder } from '../styles/Buttons';
@@ -42,7 +43,7 @@ export const IngredientInput = ({ onSubmit }) => {
   };
 
   return (
-    <div>
+    <InputFormContainer>
       <form onSubmit={handleAddIngredientClick}>
         <InputContainer>
           <TextBoxLabel>Amount</TextBoxLabel>
@@ -50,6 +51,7 @@ export const IngredientInput = ({ onSubmit }) => {
             type="number"
             value={amount}
             name="amount"
+            placeholder="Amount"
             onChange={handleAmountChange}
           />
         </InputContainer>
@@ -78,6 +80,7 @@ export const IngredientInput = ({ onSubmit }) => {
           <TextBoxLabel>Ingredient</TextBoxLabel>
           <TextBox
             value={ingredient}
+            placeholder="Ingredient"
             type="text"
             name="ingredient"
             onChange={handleIngredientChange}
@@ -95,42 +98,15 @@ export const IngredientInput = ({ onSubmit }) => {
           Add
         </BtnBorder>
       </form>
-    </div>
+    </InputFormContainer>
   );
 };
 
-export const TextBox = styled.input`
-  padding: 12px;
-  font-size: 17px;
-  text-align: center;
-  border-width: 5px;
-  border-radius: 9px;
-  border-style: solid;
-  border-color: #ffffff;
-  background-color: transparent;
-  color: #ffffff;
-  margin-left: 0.5em;
-`;
-
-export const Select = styled.select`
-  padding: 12px;
-  font-size: 17px;
-  text-align: center;
-  border-width: 5px;
-  border-radius: 9px;
-  border-style: solid;
-  border-color: #ffffff;
-  background-color: transparent;
-  color: #ffffff;
-  margin-left: 0.5em;
-`;
-
-export const TextBoxLabel = styled.label`
-  color: #fff;
-  font-size: 1.25em;
-  display: block;
-`;
-
 export const InputContainer = styled.div`
   margin: 1em 0em;
+`;
+
+export const InputFormContainer = styled.div`
+  padding: 1em 0em;
+  border-bottom: 1px #fff solid;
 `;

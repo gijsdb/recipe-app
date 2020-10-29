@@ -10,6 +10,7 @@ export const Container = styled.div`
     rgba(205, 118, 114, 1) 100%
   );
   display: flex;
+  padding: 0em 1em;
 `;
 
 export const ContentHalf = styled.div`
@@ -62,4 +63,17 @@ export const RecipeContainer = styled.div`
   max-height: 50vh;
   mag-width: 80vw;
   overflow-y: scroll;
+`;
+
+export const UnorderedList = styled.ul`
+  list-style: none;
+  padding: ${(props) => props.padding || '0'};
+  font-size: ${(props) => props.fontSize || '2em'};
+  font-weight: 400;
+  color: ${(props) => props.color};
+`;
+
+export const HalfCol = styled.div`
+  width: 50%;
+  margin: ${(props) => props.margin || 'none'};
 `;

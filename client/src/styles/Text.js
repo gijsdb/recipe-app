@@ -22,13 +22,14 @@ export const RegisterTitle = styled(Title)`
 export const SubTitle = styled.h2`
   color: ${(props) => props.color};
   font-size: ${(props) => props.fontSize || '2.25em'};
-  font-weight: ${(props) => props.fontWeight || '800'};
+  font-weight: ${(props) => props.fontWeight || '600'};
+  margin: ${(props) => props.margin || '10px 0px'};
+  display: ${(props) => props.display || ''};
 `;
 
-export const UnorderedList = styled.ul`
-  list-style: none;
-  padding: ${(props) => props.padding || 'none'};
-  font-size: ${(props) => props.fontSize || '2em'};
-  font-weight: 400;
-  color: ${(props) => props.color};
+export const Text = styled.p`
+  color: #fff;
+  margin: ${(props) => props.margin || '0'};
+  font-size: ${(props) => props.fontSize || '1.25em'};
+  font-weight: ${(props) => props.fontWeight || '400'};
 `;

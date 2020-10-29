@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BtnBorder } from '../styles/Buttons';
-import TextField from '@material-ui/core/TextField';
+import { TextBox } from '../styles/Input';
 import { addRecipe } from '../redux/actions/recipeActions';
 
 const AddRecipe = ({
@@ -75,13 +75,12 @@ const AddRecipe = ({
 
             {showTitleInput ? (
               <>
-                <TextField
+                <TextBox
                   type="text"
                   placeholder="Recipe Title"
                   name="recipeTitle"
                   autoComplete="off"
                   label="Recipe Title"
-                  variant="outlined"
                   onKeyPress={handleEnterKey}
                   onChange={handleChangeRecipeTitle}
                 />

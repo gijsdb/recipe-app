@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../redux/actions/authActions';
 import { Container, CenterContent } from '../styles/PageLayout';
-import { UnorderedList } from '../styles/Text';
+import { UnorderedList } from '../styles/PageLayout';
 import { Title, SubTitle } from '../styles/Text';
 import { BtnBorder } from '../styles/Buttons';
 import { AiFillGithub } from 'react-icons/ai';
@@ -25,7 +25,7 @@ const Home = ({ user, logoutUser, isAuthenticated, error }) => {
         <>
           <CenterContent>
             <Title color="#fff">Hello {user.Name}</Title>
-            <UnorderedList>
+            <UnorderedList padding="0">
               <li className="listItemPadding">
                 <AddRecipe></AddRecipe>
               </li>

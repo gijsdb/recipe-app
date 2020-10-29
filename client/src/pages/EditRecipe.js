@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, CenterContent } from '../styles/PageLayout';
-import { Title, SubTitle } from '../styles/Text';
+import { Title, SubTitle, Text } from '../styles/Text';
 import { BtnBorder } from '../styles/Buttons';
 import Navigation from '../components/Navigation';
 import { useLocation } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import { UnorderedList } from '../styles/Text';
+import { TextBox } from '../styles/Input';
+import { UnorderedList } from '../styles/PageLayout';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { IngredientInput } from '../components/IngredientInput';
 import {
@@ -37,7 +37,7 @@ const EditMethod = ({ recipe, setMethod }) => {
 
     try {
       setSteps(steps.concat(step));
-      stepInput.current.children[1].firstChild.value = '';
+      stepInput.current.value = '';
     } catch (e) {
       throw new Error(e.message);
     }
@@ -67,16 +67,15 @@ const EditMethod = ({ recipe, setMethod }) => {
   return (
     <>
       <Title color="#fff">Editing method for {recipe.Title}</Title>
-      <TextField
+      <TextBox
         type="text"
         placeholder="Enter Step"
         name="step"
         onChange={handleChangeStep}
         autoComplete="off"
         onKeyPress={handleEnterKey}
-        label="Enter Step"
-        variant="outlined"
-        fullWidth={true}
+        width="30vw"
+        margin="1em"
         ref={stepInput}
       />
       <BtnBorder
@@ -188,81 +187,83 @@ const EditIngredients = ({ recipe, setIngredients }) => {
       <Title color="#fff">
         Editing ingredients for {recipe.Title}
       </Title>
-      <TextField
-        type="number"
-        placeholder="How many serves?"
-        name="serves"
-        onChange={handleChangeServes}
-        autoComplete="off"
-        label="Serves"
-        value={serves}
-        variant="outlined"
-      />
-      <SubTitle color="#fff">Serves: {serves}</SubTitle>
-      <IngredientContainer>
-        <HalfCol>
-          <IngredientInput onSubmit={addIngredient}></IngredientInput>
-        </HalfCol>
-        <HalfCol>
-          {ingredientsList.length > 0 ? (
-            <>
-              <UnorderedList color="#fff" fontSize="1.5em" padding="">
-                {ingredientsList.map((ingredient, index) => {
-                  return (
-                    <li key={index}>
-                      <p>
-                        {ingredient.amount} {ingredient.measurement}{' '}
-                        {ingredient.ingredient}{' '}
-                        <AiOutlineDelete
-                          className="methodDeleteHover"
-                          onClick={() =>
-                            handleDeleteIngredient(index)
-                          }
-                        />
-                      </p>
-                    </li>
-                  );
-                })}
-              </UnorderedList>
+      <ServesContainer>
+        <SubTitle display="inline" color="#fff">
+          Serves:{' '}
+        </SubTitle>
+        <TextBox
+          type="number"
+          name="serves"
+          onChange={handleChangeServes}
+          autoComplete="off"
+          label="Serves"
+          value={serves}
+          width="3em"
+        />
+      </ServesContainer>
 
-              <BtnBorder
-                color="white"
-                borderColor="white"
-                className="btnHomeHover"
-                fontSize="1em"
-                marginTop="0.5em"
-                onClick={handleConfirm}
-              >
-                Confirm
-              </BtnBorder>
-            </>
-          ) : (
-            <>
-              <p>No ingredients</p>
-              <BtnBorder
-                color="white"
-                borderColor="white"
-                className="btnHomeHover"
-                fontSize="1em"
-                marginTop="0.5em"
-                onClick={handleConfirm}
-              >
-                Confirm
-              </BtnBorder>
-            </>
-          )}
-        </HalfCol>
+      <IngredientContainer>
+        {/* <HalfCol> */}
+        <IngredientInput onSubmit={addIngredient}></IngredientInput>
+        {/* </HalfCol> */}
+        {/* <HalfCol margin="0em 1em;"> */}
+        {ingredientsList.length > 0 ? (
+          <>
+            <UnorderedList color="#fff" fontSize="1.5em" padding="">
+              {ingredientsList.map((ingredient, index) => {
+                return (
+                  <li key={index}>
+                    <p>
+                      {ingredient.amount} {ingredient.measurement}{' '}
+                      {ingredient.ingredient}{' '}
+                      <AiOutlineDelete
+                        className="methodDeleteHover"
+                        onClick={() => handleDeleteIngredient(index)}
+                      />
+                    </p>
+                  </li>
+                );
+              })}
+            </UnorderedList>
+
+            <BtnBorder
+              color="white"
+              borderColor="white"
+              className="btnHomeHover"
+              fontSize="1em"
+              marginTop="0.5em"
+              onClick={handleConfirm}
+            >
+              Confirm
+            </BtnBorder>
+          </>
+        ) : (
+          <>
+            <Text margin="30px 0px">No ingredients</Text>
+            <BtnBorder
+              color="white"
+              borderColor="white"
+              className="btnHomeHover"
+              fontSize="1em"
+              marginTop="0.5em"
+              onClick={handleConfirm}
+            >
+              Confirm
+            </BtnBorder>
+          </>
+        )}
+        {/* </HalfCol> */}
       </IngredientContainer>
     </>
   );
 };
 
 export const IngredientContainer = styled.div`
-  display: flex;
+  display: inline;
 `;
-export const HalfCol = styled.div`
-  width: 50%;
-  margin: 0em 1em;
+export const ServesContainer = styled.div`
+  padding-bottom: 3em;
+  border-bottom: 1px solid #fff;
 `;
 
 const EditRecipe = ({

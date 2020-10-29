@@ -20,9 +20,6 @@ const RecipeCard = ({ recipe, setCurrentRecipe }) => {
       <h1>{recipe.Title}</h1>
       <RecipeCardDetails>
         <RecipeCardDetail>
-          <strong>Date created</strong> <br /> {recipe.createdAt}
-        </RecipeCardDetail>
-        <RecipeCardDetail>
           <strong>Created by</strong> <br /> {recipe.AddedBy.Name}
         </RecipeCardDetail>
       </RecipeCardDetails>
@@ -56,6 +53,7 @@ export const RecipeCardDiv = styled.div`
   border-radius: 10px;
   @media (min-width: 425px) {
     margin: 10px 10px;
+    width: 10vw;
   }
 `;
 

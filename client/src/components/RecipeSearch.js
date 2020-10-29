@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import { TextBox } from '../styles/Input';
 
 export const RecipeSearch = ({ onChange }) => {
   const handleChange = (event) => {
@@ -7,7 +7,7 @@ export const RecipeSearch = ({ onChange }) => {
   };
 
   return (
-    <TextField
+    <TextBox
       type="text"
       placeholder="Search by title"
       name="searchTerm"
