@@ -15,13 +15,13 @@ export const TextBox = styled.input`
   display: ${(props) => props.display};
   transition: 0.1s;
 
+  @media (max-width: 600px) {
+    margin: 5px;
+  }
+
   &:focus {
     transition: 0.1s;
     border-width: 5px;
-  }
-
-  @media (min-width: 600px) {
-    width: 12em;
   }
 `;
 
@@ -35,6 +35,7 @@ export const Button = styled.button`
   transition: 0.5s;
   height: '100%';
   margin: ${(props) => props.margin || '10px auto'};
+
   &:hover {
     cursor: pointer;
     transition: 0.5s;
@@ -56,11 +57,16 @@ export const HomeButton = styled(Button)`
   font-size: 2em;
   width: 10em;
   padding: 1em 1em;
+  @media (max-width: 400px) {
+    padding: 0.5em 1em;
+  }
 `;
 
 export const NavButton = styled(Button)`
   margin: 43px auto;
+  width: 8em;
   @media (max-width: 600px) {
+    width: auto;
     margin: 20px auto;
     padding: 1em 1em;
   }
@@ -77,6 +83,12 @@ export const Select = styled.select`
   background-color: transparent;
   color: #ffffff;
   margin-left: 0.5em;
+  width: ${(props) => props.width || 'auto'};
+
+  @media (max-width: 600px) {
+    width: 30%;
+    margin: 5px;
+  }
 `;
 
 export const TextBoxLabel = styled.label`
