@@ -15,7 +15,6 @@ const ingredientsSchema = new Schema(
     },
     List: {
       type: Array,
-      unique: true,
       required: true,
     },
   },

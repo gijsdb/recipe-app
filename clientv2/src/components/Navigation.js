@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BtnBorder } from '../styles/Buttons';
 import { Title } from '../styles/Text';
+import { NavButton } from '../styles/Input';
 import { logoutUser } from '../redux/actions/authActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-export const Navigation = ({ navigateTarget, logoutUser }) => {
+export const Navigation = ({
+  navigateTarget,
+  isAuthenticated,
+  logoutUser,
+}) => {
   const history = useHistory();
 
   const logoutEvent = (e) => {
@@ -15,31 +19,27 @@ export const Navigation = ({ navigateTarget, logoutUser }) => {
   };
 
   const navigateEvent = (navigateTarget) => {
-    history.push('/' + navigateTarget);
+    if (window.location.pathname === '/home') {
+      return;
+    }
+    history.goBack();
   };
 
   return (
     <NavigationContainer>
-      <BtnBorder
-        onClick={() => {
-          navigateEvent(navigateTarget);
-        }}
-        color="white"
-        borderColor="white"
-        className="btnHomeHover"
-        marginLeft="10px"
-      >
-        Back
-      </BtnBorder>
+      {!isAuthenticated ? (
+        <Title>Recipe App</Title>
+      ) : (
+        <>
+          <NavButton onClick={navigateEvent}>Back</NavButton>
 
-      <BtnBorder
-        onClick={logoutEvent}
-        color="white"
-        borderColor="white"
-        className="btnHomeHover"
-      >
-        Logout
-      </BtnBorder>
+          <Link to="/">
+            <Title>Recipe App </Title>
+          </Link>
+
+          <NavButton onClick={logoutEvent}>Logout</NavButton>
+        </>
+      )}
     </NavigationContainer>
   );
 };
@@ -55,9 +55,12 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, { logoutUser })(Navigation);
 
 export const NavigationContainer = styled.div`
-  display: flex;
+  width: 100vw;
+  padding: 1em 0em;
   position: absolute;
   top: 0;
   left: 0;
-  margin: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 `;
